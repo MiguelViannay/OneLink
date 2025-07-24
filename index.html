@@ -12,191 +12,323 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        /* Estilo base para o corpo da página */
         body {
             font-family: 'Inter', sans-serif;
-            overflow: hidden; /* Evita barras de rolagem causadas pelo canvas */
+        }
+        
+        /* Estilo para o corpo quando um modal está aberto */
+        body.modal-open {
+            overflow: hidden;
         }
 
-        /* Canvas para o fundo de estrelas animado */
         #star-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Coloca o canvas atrás de todo o conteúdo */
+            z-index: -1;
+            cursor: grab;
+        }
+        #star-background:active {
+            cursor: grabbing;
         }
 
-        /* Animação de fade-in para o conteúdo principal */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Aplica a animação com um atraso para um efeito mais suave */
-        .animate-fade-in {
-            animation: fadeIn 1s ease-out forwards;
-        }
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
         
-        .content-card {
-            opacity: 0; /* Começa invisível para a animação */
-            animation-delay: 0.5s;
-        }
+        /* Atrasos na animação para efeito escalonado */
+        .profile-pic { opacity: 0; animation-delay: 0.2s; }
+        .name-block { opacity: 0; animation-delay: 0.4s; }
+        .about-card { opacity: 0; animation-delay: 0.6s; }
+        .projects-card { opacity: 0; animation-delay: 0.7s; }
+        .direct-download { opacity: 0; animation-delay: 0.8s; }
+        .footer-text { opacity: 0; animation-delay: 1s; }
 
-        .profile-pic {
-             opacity: 0;
-             animation-delay: 0.2s;
+        /* Estilos para os Modais */
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-
-        .project-link {
-            opacity: 0;
-            animation-delay: 0.8s;
+        .modal-content {
+            transition: transform 0.3s ease;
         }
-        
-        .footer-text {
-            opacity: 0;
-            animation-delay: 1s;
-        }
-
     </style>
 </head>
 <body class="bg-gradient-to-br from-gray-900 via-blue-900 to-black text-white">
     
-    <!-- Canvas para o fundo de estrelas -->
     <canvas id="star-background"></canvas>
 
     <!-- Container Principal -->
-    <main class="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
+    <main class="relative z-10 flex flex-col items-center justify-center min-h-screen p-4 overflow-x-hidden">
         
         <div class="w-full max-w-md mx-auto text-center">
             
-            <!-- Foto de Perfil -->
-            <!-- IMPORTANTE: Troque o 'src' pela URL da sua foto -->
-            <img 
-                src="https://placehold.co/128x128/3B82F6/FFFFFF?text=MV" 
-                alt="Foto de Perfil de Miguel Viannay" 
-                class="profile-pic animate-fade-in w-32 h-32 mx-auto rounded-full border-4 border-blue-500/50 shadow-lg transform transition-transform duration-500 hover:scale-110"
-                onerror="this.onerror=null; this.src='https://placehold.co/128x128/3B82F6/FFFFFF?text=MV';"
-            >
+            <img src="https://placehold.co/128x128/3B82F6/FFFFFF?text=MV" alt="Foto de Perfil de Miguel Viannay" class="profile-pic animate-fade-in w-32 h-32 mx-auto rounded-full border-4 border-blue-500/50 shadow-lg transform transition-transform duration-500 hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/128x128/3B82F6/FFFFFF?text=MV';">
 
-            <!-- Nome -->
-            <h1 class="profile-pic animate-fade-in text-3xl font-bold mt-4 text-gray-100">
-                Miguel Viannay
-            </h1>
+            <div class="name-block animate-fade-in">
+                <h1 class="text-3xl font-bold mt-4 text-gray-100">Miguel Viannay</h1>
+                <a href="https://instagram.com/mig.viannay" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">@mig.viannay</a>
+            </div>
 
             <!-- Sobre Mim -->
-            <div class="content-card animate-fade-in bg-white/10 backdrop-blur-sm rounded-xl p-6 mt-6 shadow-2xl">
-                <h2 class="text-xl font-semibold text-blue-300 mb-2">Sobre Mim</h2>
-                <p class="text-gray-300 text-base">
-                    Curso Ciências Exatas na Universidade Federal de Juiz de Fora. Sou apaixonado por Tecnologia e Inteligência Artificial e desenvolvo projetos.
+            <div class="about-card animate-fade-in bg-white/10 backdrop-blur-sm rounded-xl p-6 mt-6 shadow-2xl text-left">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-blue-300">Sobre Mim</h2>
+                    <button onclick="openModal('aboutModal')" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">Ver Mais</button>
+                </div>
+                <p class="text-gray-300 text-base mt-2">
+                    Estudante de Ciências Exatas na UFJF, entusiasta de IA e desenvolvedor de soluções que unem tecnologia e criatividade.
                 </p>
             </div>
 
             <!-- Projetos -->
-            <div class="w-full mt-8">
-                <h2 class="content-card animate-fade-in text-xl font-semibold text-blue-300 mb-4">Meus Projetos</h2>
-                
-                <!-- Link do Projeto -->
-                <a 
-                    href="http://github.com/MiguelViannay/Academic-Control/archive/refs/heads/main.zip" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="project-link animate-fade-in group block bg-blue-600 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-500 hover:shadow-2xl"
-                >
-                    <span class="group-hover:tracking-wider transition-all duration-300">
-                        Baixar Controle Acadêmico (App)
-                    </span>
-                </a>
+            <div class="projects-card animate-fade-in bg-white/10 backdrop-blur-sm rounded-xl p-6 mt-4 shadow-2xl text-left">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-blue-300">Meus Projetos</h2>
+                    <button onclick="openModal('projectsModal')" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">Ver Tudo</button>
+                </div>
+                <p class="text-gray-300 text-base mt-2">
+                    Explore os aplicativos e ferramentas que desenvolvo, combinando código e inteligência artificial.
+                </p>
             </div>
+
+            <!-- Download Direto -->
+            <a href="http://github.com/MiguelViannay/Academic-Control/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer" class="direct-download animate-fade-in group block bg-blue-700/80 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-600 hover:shadow-2xl mt-8">
+                <span class="group-hover:tracking-wider transition-all duration-300">
+                    <i class="fas fa-download mr-2"></i> Baixar Controle Acadêmico (.zip)
+                </span>
+            </a>
         </div>
 
-        <!-- Rodapé -->
         <footer class="footer-text animate-fade-in absolute bottom-4 text-center w-full">
-            <p class="text-gray-500 text-sm">Copyright &copy; One Viannay</p>
+            <p class="text-gray-500 text-sm">Copyright &copy; 2025 One Viannay</p>
         </footer>
     </main>
 
+    <!-- Modal Sobre Mim -->
+    <div id="aboutModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm invisible opacity-0" onclick="closeModal('aboutModal')">
+        <div class="modal-content bg-gray-900/80 border border-blue-500/30 rounded-2xl shadow-2xl w-11/12 max-w-2xl p-8 transform scale-95" onclick="event.stopPropagation()">
+            <button onclick="closeModal('aboutModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl">&times;</button>
+            <h2 class="text-3xl font-bold text-blue-300 mb-6">Minha História</h2>
+            
+            <div class="space-y-6 text-gray-300 text-lg max-h-[70vh] overflow-y-auto pr-4">
+                <section>
+                    <h3 class="font-semibold text-xl text-white mb-2">Quem Eu Sou</h3>
+                    <p>Olá! Sou Miguel Viannay. Desde cedo, a curiosidade sobre como as coisas funcionam me moveu em direção à tecnologia. Hoje, canalizo essa paixão para criar projetos que possam, de alguma forma, facilitar e enriquecer a vida das pessoas.</p>
+                </section>
+                <section>
+                    <h3 class="font-semibold text-xl text-white mb-2">Minha Formação</h3>
+                    <p>Atualmente, estou imerso no universo das Ciências Exatas na prestigiosa Universidade Federal de Juiz de Fora (UFJF). Aqui, construo uma base sólida em lógica, matemática e computação, que são os pilares para minhas explorações em desenvolvimento e Inteligência Artificial.</p>
+                </section>
+                <section>
+                    <h3 class="font-semibold text-xl text-white mb-2">Habilidades e Desafios</h3>
+                    <p>Minhas habilidades se concentram em [Ex: Python, JavaScript, desenvolvimento de apps com IA], mas estou sempre aprendendo. O maior desafio é manter-se atualizado em um campo que evolui diariamente, mas é justamente isso que o torna tão empolgante.</p>
+                </section>
+                 <section>
+                    <h3 class="font-semibold text-xl text-white mb-2">Curiosidades</h3>
+                    <p>Além do código, sou fascinado por [Ex: ficção científica, astronomia, música eletrônica]. Acredito que a criatividade floresce quando conectamos conhecimentos de áreas distintas.</p>
+                </section>
+                <section>
+                    <h3 class="font-semibold text-xl text-white mb-2">Contato</h3>
+                    <p>Vamos nos conectar! Você pode me encontrar no Instagram <a href="https://instagram.com/mig.viannay" target="_blank" class="text-blue-400 hover:underline">@mig.viannay</a> ou explorar meus projetos no <a href="https://github.com/MiguelViannay" target="_blank" class="text-blue-400 hover:underline">GitHub</a>.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Projetos -->
+    <div id="projectsModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm invisible opacity-0" onclick="closeModal('projectsModal')">
+        <div class="modal-content bg-gray-900/80 border border-blue-500/30 rounded-2xl shadow-2xl w-11/12 max-w-4xl p-8 transform scale-95" onclick="event.stopPropagation()">
+            <button onclick="closeModal('projectsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl">&times;</button>
+            <h2 class="text-3xl font-bold text-blue-300 mb-2">Galeria de Projetos</h2>
+            <p class="text-gray-400 mb-6">Apps que desenvolvo, unindo código e Inteligência Artificial.</p>
+
+            <div class="max-h-[70vh] overflow-y-auto pr-4">
+                <!-- Categoria Produtividade -->
+                <div>
+                    <h3 class="text-2xl font-semibold text-white mb-4">Produtividade</h3>
+                    
+                    <!-- App Card: Controle Acadêmico -->
+                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6">
+                        <!-- Ícone -->
+                        <img src="https://placehold.co/128x128/1E40AF/FFFFFF?text=AC" alt="Ícone do App Controle Acadêmico" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0">
+                        
+                        <!-- Detalhes -->
+                        <div class="flex-grow">
+                            <h4 class="text-2xl font-bold text-white">Controle Acadêmico</h4>
+                            <p class="text-blue-300 mb-3">One Viannay</p>
+                            <p class="text-gray-300 mb-4">
+                                Gerencie sua vida estudantil com facilidade. O Controle Acadêmico ajuda a organizar suas notas, faltas, horários e atividades, tudo em um só lugar. Ideal para estudantes que buscam otimizar seu desempenho e nunca mais perder um prazo.
+                            </p>
+                            <a href="http://github.com/MiguelViannay/Academic-Control/archive/refs/heads/main.zip" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
+                                <i class="fas fa-download mr-2"></i> Baixar
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Screenshots -->
+                    <div class="mt-4">
+                        <h5 class="text-lg font-semibold text-white mb-3">Visualização</h5>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            <img src="https://placehold.co/600x400/020617/3B82F6?text=Tela+Inicial" class="rounded-lg w-full h-auto shadow-lg">
+                            <img src="https://placehold.co/600x400/020617/3B82F6?text=Notas" class="rounded-lg w-full h-auto shadow-lg">
+                            <img src="https://placehold.co/600x400/020617/3B82F6?text=Horários" class="rounded-lg w-full h-auto shadow-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Futuras Categorias -->
+                <div class="text-center text-gray-500 mt-12">
+                    <p>Novas categorias como Softwares, Games e Websites em breve...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
-        // Script para o fundo de estrelas animado
         const canvas = document.getElementById('star-background');
         const ctx = canvas.getContext('2d');
+        let stars = [], numStars = 200;
+        let isDragging = false;
+        const spaceship = {
+            x: -100, y: -100,
+            lastX: -100, lastY: -100,
+            angle: 0,
+            visible: false,
+            size: 15,
+            draw() {
+                if (!this.visible) return;
 
-        let stars = [];
-        const numStars = 200; // Número de estrelas
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
 
-        // Ajusta o tamanho do canvas para preencher a tela
+                // Chama
+                const flameSize = this.size * (1 + Math.random() * 0.5);
+                const flameX = -this.size * 1.2;
+                ctx.beginPath();
+                ctx.moveTo(flameX, 0);
+                ctx.lineTo(flameX - flameSize, -flameSize / 3);
+                ctx.lineTo(flameX - flameSize, flameSize / 3);
+                ctx.closePath();
+                const grd = ctx.createLinearGradient(flameX, 0, flameX - flameSize, 0);
+                grd.addColorStop(0, "rgba(255, 200, 0, 1)");
+                grd.addColorStop(1, "rgba(255, 0, 0, 0.5)");
+                ctx.fillStyle = grd;
+                ctx.fill();
+
+                // Corpo da nave
+                ctx.beginPath();
+                ctx.moveTo(this.size, 0);
+                ctx.lineTo(-this.size, -this.size / 2);
+                ctx.lineTo(-this.size, this.size / 2);
+                ctx.closePath();
+                ctx.fillStyle = '#d1d5db'; // gray-300
+                ctx.fill();
+                
+                ctx.restore();
+            },
+            update(x, y) {
+                this.x = x;
+                this.y = y;
+                if (this.lastX !== -100) {
+                    const dx = this.x - this.lastX;
+                    const dy = this.y - this.lastY;
+                    if(Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+                       this.angle = Math.atan2(dy, dx);
+                    }
+                }
+                this.lastX = x;
+                this.lastY = y;
+            }
+        };
+
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
 
-        // Classe para representar uma estrela
         class Star {
-            constructor() {
+            constructor() { this.reset(); this.y = Math.random() * canvas.height; }
+            reset() {
                 this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.radius = Math.random() * 1.5 + 0.5; // Tamanho da estrela
-                this.alpha = Math.random(); // Opacidade inicial
-                this.deltaAlpha = Math.random() * 0.02 - 0.01; // Variação da opacidade (para piscar)
+                this.y = canvas.height + Math.random() * 50;
+                this.radius = Math.random() * 1.5 + 0.5;
+                this.alpha = Math.random();
+                this.deltaAlpha = Math.random() * 0.02 - 0.01;
+                this.speed = Math.random() * 0.2 + 0.1;
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
                 ctx.fill();
             }
-
             update() {
                 this.alpha += this.deltaAlpha;
-
-                // Inverte a direção da mudança de opacidade nos limites
-                if (this.alpha <= 0 || this.alpha >= 1) {
-                    this.deltaAlpha = -this.deltaAlpha;
-                }
-                
-                // Move a estrela lentamente
-                this.x -= 0.1;
-
-                // Reposiciona a estrela quando ela sai da tela
-                if (this.x < 0) {
-                    this.x = canvas.width;
-                }
-
+                if (this.alpha <= 0 || this.alpha >= 1) this.deltaAlpha = -this.deltaAlpha;
+                this.y -= this.speed;
+                if (this.y < 0) this.reset();
                 this.draw();
             }
         }
 
-        // Inicializa as estrelas
         function init() {
             stars = [];
-            for (let i = 0; i < numStars; i++) {
-                stars.push(new Star());
-            }
+            for (let i = 0; i < numStars; i++) stars.push(new Star());
         }
 
-        // Loop de animação
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             stars.forEach(star => star.update());
+            spaceship.draw();
             requestAnimationFrame(animate);
         }
 
-        // Event listeners para redimensionamento da janela
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            init(); // Reinicia as estrelas para a nova dimensão
-        });
+        window.addEventListener('resize', () => { resizeCanvas(); init(); });
+        
+        // Eventos da Nave
+        function getEventCoords(e) {
+            return e.touches ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : { x: e.clientX, y: e.clientY };
+        }
+        
+        canvas.addEventListener('mousedown', (e) => { isDragging = true; const {x,y} = getEventCoords(e); spaceship.update(x,y); spaceship.visible = true; });
+        canvas.addEventListener('touchstart', (e) => { isDragging = true; const {x,y} = getEventCoords(e); spaceship.update(x,y); spaceship.visible = true; });
 
+        canvas.addEventListener('mouseup', () => { isDragging = false; spaceship.visible = false; spaceship.lastX = -100; });
+        canvas.addEventListener('mouseleave', () => { isDragging = false; spaceship.visible = false; spaceship.lastX = -100; });
+        canvas.addEventListener('touchend', () => { isDragging = false; spaceship.visible = false; spaceship.lastX = -100; });
+
+        canvas.addEventListener('mousemove', (e) => { if (isDragging) { const {x,y} = getEventCoords(e); spaceship.update(x,y); } });
+        canvas.addEventListener('touchmove', (e) => { if (isDragging) { e.preventDefault(); const {x,y} = getEventCoords(e); spaceship.update(x,y); } }, { passive: false });
+
+
+        // Funções do Modal
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            document.body.classList.add('modal-open');
+            modal.classList.remove('invisible', 'opacity-0');
+            modal.querySelector('.modal-content').classList.remove('scale-95');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            document.body.classList.remove('modal-open');
+            modal.classList.add('opacity-0');
+            modal.querySelector('.modal-content').classList.add('scale-95');
+            setTimeout(() => modal.classList.add('invisible'), 300);
+        }
+        
         // Inicia tudo
         resizeCanvas();
         init();
