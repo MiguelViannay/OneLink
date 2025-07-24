@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miguel Viannay - Links</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Estilo base para o corpo da página */
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Evita barras de rolagem causadas pelo canvas */
+        }
+
+        /* Canvas para o fundo de estrelas animado */
+        #star-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Coloca o canvas atrás de todo o conteúdo */
+        }
+
+        /* Animação de fade-in para o conteúdo principal */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Aplica a animação com um atraso para um efeito mais suave */
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .content-card {
+            opacity: 0; /* Começa invisível para a animação */
+            animation-delay: 0.5s;
+        }
+
+        .profile-pic {
+             opacity: 0;
+             animation-delay: 0.2s;
+        }
+
+        .project-link {
+            opacity: 0;
+            animation-delay: 0.8s;
+        }
+        
+        .footer-text {
+            opacity: 0;
+            animation-delay: 1s;
+        }
+
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-blue-900 to-black text-white">
+    
+    <!-- Canvas para o fundo de estrelas -->
+    <canvas id="star-background"></canvas>
+
+    <!-- Container Principal -->
+    <main class="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
+        
+        <div class="w-full max-w-md mx-auto text-center">
+            
+            <!-- Foto de Perfil -->
+            <!-- IMPORTANTE: Troque o 'src' pela URL da sua foto -->
+            <img 
+                src="https://placehold.co/128x128/3B82F6/FFFFFF?text=MV" 
+                alt="Foto de Perfil de Miguel Viannay" 
+                class="profile-pic animate-fade-in w-32 h-32 mx-auto rounded-full border-4 border-blue-500/50 shadow-lg transform transition-transform duration-500 hover:scale-110"
+                onerror="this.onerror=null; this.src='https://placehold.co/128x128/3B82F6/FFFFFF?text=MV';"
+            >
+
+            <!-- Nome -->
+            <h1 class="profile-pic animate-fade-in text-3xl font-bold mt-4 text-gray-100">
+                Miguel Viannay
+            </h1>
+
+            <!-- Sobre Mim -->
+            <div class="content-card animate-fade-in bg-white/10 backdrop-blur-sm rounded-xl p-6 mt-6 shadow-2xl">
+                <h2 class="text-xl font-semibold text-blue-300 mb-2">Sobre Mim</h2>
+                <p class="text-gray-300 text-base">
+                    Curso Ciências Exatas na Universidade Federal de Juiz de Fora. Sou apaixonado por Tecnologia e Inteligência Artificial e desenvolvo projetos.
+                </p>
+            </div>
+
+            <!-- Projetos -->
+            <div class="w-full mt-8">
+                <h2 class="content-card animate-fade-in text-xl font-semibold text-blue-300 mb-4">Meus Projetos</h2>
+                
+                <!-- Link do Projeto -->
+                <a 
+                    href="http://github.com/MiguelViannay/Academic-Control/archive/refs/heads/main.zip" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="project-link animate-fade-in group block bg-blue-600 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-500 hover:shadow-2xl"
+                >
+                    <span class="group-hover:tracking-wider transition-all duration-300">
+                        Baixar Controle Acadêmico (App)
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Rodapé -->
+        <footer class="footer-text animate-fade-in absolute bottom-4 text-center w-full">
+            <p class="text-gray-500 text-sm">Copyright &copy; One Viannay</p>
+        </footer>
+    </main>
+
+    <script>
+        // Script para o fundo de estrelas animado
+        const canvas = document.getElementById('star-background');
+        const ctx = canvas.getContext('2d');
+
+        let stars = [];
+        const numStars = 200; // Número de estrelas
+
+        // Ajusta o tamanho do canvas para preencher a tela
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        // Classe para representar uma estrela
+        class Star {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.radius = Math.random() * 1.5 + 0.5; // Tamanho da estrela
+                this.alpha = Math.random(); // Opacidade inicial
+                this.deltaAlpha = Math.random() * 0.02 - 0.01; // Variação da opacidade (para piscar)
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                ctx.fill();
+            }
+
+            update() {
+                this.alpha += this.deltaAlpha;
+
+                // Inverte a direção da mudança de opacidade nos limites
+                if (this.alpha <= 0 || this.alpha >= 1) {
+                    this.deltaAlpha = -this.deltaAlpha;
+                }
+                
+                // Move a estrela lentamente
+                this.x -= 0.1;
+
+                // Reposiciona a estrela quando ela sai da tela
+                if (this.x < 0) {
+                    this.x = canvas.width;
+                }
+
+                this.draw();
+            }
+        }
+
+        // Inicializa as estrelas
+        function init() {
+            stars = [];
+            for (let i = 0; i < numStars; i++) {
+                stars.push(new Star());
+            }
+        }
+
+        // Loop de animação
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => star.update());
+            requestAnimationFrame(animate);
+        }
+
+        // Event listeners para redimensionamento da janela
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            init(); // Reinicia as estrelas para a nova dimensão
+        });
+
+        // Inicia tudo
+        resizeCanvas();
+        init();
+        animate();
+    </script>
+
+</body>
+</html>
