@@ -108,7 +108,11 @@
         
         <div class="w-full max-w-md mx-auto text-center">
             
-            <img src="./img/perfil.jpg" alt="Foto de Perfil de Miguel Viannay" class="profile-pic animate-fade-in w-32 h-32 mx-auto rounded-full border-4 border-blue-500/50 shadow-lg transform transition-transform duration-500 hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/128x128/3B82F6/FFFFFF?text=MV';">
+            <img src="./img/perfil.jpg" 
+                alt="Foto de Perfil de Miguel Viannay" 
+                onclick="openModal('statsModal')"
+                class="profile-pic animate-fade-in w-32 h-32 mx-auto rounded-full border-4 border-blue-500/50 shadow-lg transform transition-transform duration-500 hover:scale-110 cursor-pointer hover:border-blue-400" 
+                onerror="this.onerror=null; this.src='https://placehold.co/128x128/3B82F6/FFFFFF?text=MV';">
 
             <div class="name-block animate-fade-in">
                 <h1 class="text-3xl font-bold mt-4 text-gray-100">Miguel Viannay</h1>
@@ -132,6 +136,16 @@
                 </div>
                 <p class="text-gray-300 text-base mt-2">
                     A seguir mostro alguns projetos que venho realizando ao longo de minha trajetória como aprendiz.
+                </p>
+            </div>
+
+            <div class="contact-card animate-fade-in bg-white/10 backdrop-blur-sm rounded-xl p-6 mt-4 shadow-2xl text-left">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-cyan-300">Certificações</h2>
+                    <button onclick="openModal('certsModal')" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">Ver Conquistas</button>
+                </div>
+                <p class="text-gray-300 text-base mt-2">
+                    Minhas qualificações técnicas, cursos e especializações na área de Dados e Tecnologia.
                 </p>
             </div>
 
@@ -165,7 +179,7 @@
                 </section>
                 <section>
                     <h3 class="font-semibold text-xl text-white mb-2">Paixões Além do Código</h3>
-                    <p>Além de online, você pode me encontrar lendo bons livros, assistindo a videos casuais no YouTube ou jogando alguns jogos de carta. Com isso, posso desenvolver minha criatividade e relaxar um pouco.</p>
+                    <p>Além de online, você pode me encontrar lendo bons livros, assistindo a videos casuais no YouTube ou jogando alguns jogos de carta. Com isso, posso desenvolver minha criatividade e relaxar um pouco. Além disso, sou apaixonado na pela equipe francesa, Alpine, de Fórmula 1.</p>
                 </section>
                 <section>
                     <h3 class="font-semibold text-xl text-white mb-2">Quer trocar uma ideia?</h3>
@@ -175,11 +189,75 @@
         </div>
     </div>
 
+    <div id="certsModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm invisible opacity-0" onclick="closeModal('certsModal')">
+        <div class="modal-content bg-gray-900/80 border border-cyan-500/30 rounded-2xl shadow-2xl w-11/12 max-w-4xl p-8 transform scale-95" onclick="event.stopPropagation()">
+            <button onclick="closeModal('certsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl">&times;</button>
+            <h2 class="text-3xl font-bold text-cyan-300 mb-2">Certificações e Cursos</h2>
+            <p class="text-gray-400 mb-6">Aprendizado contínuo em Análise de Dados e Desenvolvimento.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                
+                <div class="bg-white/5 p-4 rounded-lg border-l-4 border-cyan-500 hover:bg-white/10 transition-colors">
+                    <h3 class="font-bold text-white text-lg">Análise de Dados: Fundamentos</h3>
+                    <p class="text-cyan-400 text-sm mb-2">UFJF / Xperium / DIO</p>
+                    <p class="text-gray-400 text-sm">Conceitos de estatística, limpeza de dados e visualização inicial.</p>
+                    <div class="mt-3 flex gap-2">
+                        <span class="text-xs bg-cyan-900 text-cyan-200 px-2 py-1 rounded">Python</span>
+                        <span class="text-xs bg-cyan-900 text-cyan-200 px-2 py-1 rounded">MySQL</span>
+                    </div>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border-l-4 border-blue-500 hover:bg-white/10 transition-colors">
+                    <h3 class="font-bold text-white text-lg">Power BI para Business Intelligence</h3>
+                    <p class="text-blue-400 text-sm mb-2">Xperium</p>
+                    <p class="text-gray-400 text-sm">Criação de Dashboards interativos e modelagem de dados.</p>
+                    <div class="mt-3 flex gap-2">
+                        <span class="text-xs bg-blue-900 text-blue-200 px-2 py-1 rounded">DAX</span>
+                        <span class="text-xs bg-blue-900 text-blue-200 px-2 py-1 rounded">Power Query</span>
+                    </div>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border-l-4 border-yellow-500 hover:bg-white/10 transition-colors">
+                    <h3 class="font-bold text-white text-lg">SQL Database Advanced</h3>
+                    <p class="text-yellow-400 text-sm mb-2">Xperium / DIO / DankiCode</p>
+                    <p class="text-gray-400 text-sm">Modelagem de banco de dados relacional e queries avançadas.</p>
+                    <div class="mt-3 flex gap-2">
+                        <span class="text-xs bg-yellow-900 text-yellow-200 px-2 py-1 rounded">MySQL</span>
+                        <span class="text-xs bg-yellow-900 text-yellow-200 px-2 py-1 rounded">Database</span>
+                    </div>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border-l-4 border-purple-500 hover:bg-white/10 transition-colors">
+                    <h3 class="font-bold text-white text-lg">Web Development Fullstack</h3>
+                    <p class="text-purple-400 text-sm mb-2">DankiCode / Inteligência Artificial</p>
+                    <p class="text-gray-400 text-sm">Desenvolvimento de interfaces modernas e APIs.</p>
+                    <div class="mt-3 flex gap-2">
+                        <span class="text-xs bg-purple-900 text-purple-200 px-2 py-1 rounded">HTML/CSS</span>
+                        <span class="text-xs bg-purple-900 text-purple-200 px-2 py-1 rounded">JS / Node.js</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div id="projectsModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm invisible opacity-0" onclick="closeModal('projectsModal')">
         <div class="modal-content bg-gray-900/80 border border-blue-500/30 rounded-2xl shadow-2xl w-11/12 max-w-4xl p-8 transform scale-95" onclick="event.stopPropagation()">
             <button onclick="closeModal('projectsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl">&times;</button>
             <h2 class="text-3xl font-bold text-blue-300 mb-2">Galeria de Projetos</h2>
             <p class="text-gray-400 mb-6">Uma amostra do que eu ando criando por aí.</p>
+
+            <div class="bg-yellow-500/10 border-l-4 border-yellow-500 p-4 mb-8 rounded-r-lg flex items-center gap-4">
+                <div class="bg-yellow-500/20 p-2 rounded-full">
+                    <i class="fas fa-exclamation-triangle text-red-500 text-xl"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-yellow-400 text-sm uppercase mb-1">Status: Em Atualização</h4>
+                    <p class="text-yellow-100/80 text-sm">
+                        O portfólio está passando por melhorias. O conteúdo pode conter erros e apresentar projetos não acabados.
+                    </p>
+                </div>
+            </div>
             
             <div class="flex items-center justify-center gap-2 md:gap-4 mb-8 flex-wrap">
                 <a href="#cat-websites" onclick="smoothScroll(event, 'cat-websites')" class="bg-white/10 hover:bg-white/20 text-white font-semibold py-2 px-4 rounded-full text-sm transition-colors duration-300">Websites & eSports</a>
@@ -188,7 +266,7 @@
             </div>
 
             <div id="project-list" class="max-h-[60vh] overflow-y-auto pr-4 space-y-12">
-                
+    
                 <div id="cat-websites">
                     <h3 class="text-2xl font-semibold text-white mb-4 border-b-2 border-blue-500/30 pb-2">Websites & eSports</h3>
                     
@@ -197,17 +275,55 @@
                         <div class="flex-grow">
                             <h4 class="text-2xl font-bold text-white">SFS Force Speed</h4>
                             <p class="text-yellow-400 mb-3">Equipe de eSports</p>
-                            <p class="text-gray-300 mb-4">Website e painel de controle para a SFS Force Speed, uma equipe de corrida virtual. O projeto inclui identidade visual, telemetria e um espaço para a comunidade de pilotos.</p>
+                            <p class="text-gray-300 mb-4">Website e painel de controle para a SFS Force Speed. O projeto inclui identidade visual, telemetria e um espaço para a comunidade de pilotos.</p>
                             <a href="https://sfs-force-speed.web.app" target="_blank" class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
                                 <i class="fas fa-globe mr-2"></i> Visitar Site
                             </a>
                         </div>
                     </div>
+                    <div class="mt-4 mb-8">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            <img src="./img/sfs-home.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/D97706?text=SFS+Home';">
+                            <img src="./img/sfs-painel.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/D97706?text=Painel';">
+                            <img src="./img/sfs-pilotos.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/D97706?text=Pilotos';">
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
+                        <img src="./img/icon-brasileirao.png" alt="Ícone CE Brasileirão" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/166534/FFFFFF?text=UFJF';">
+                        <div class="flex-grow">
+                            <h4 class="text-2xl font-bold text-white">CE-Brasileirão UFJF</h4>
+                            <p class="text-green-400 mb-3">Campeonato Universitário</p>
+                            <p class="text-gray-300 mb-4">Plataforma interativa para o campeonato de pontos do curso de Ciências Exatas da UFJF. Objetivo de simular vagas em tempo real para o segundo-ciclo com estatísticas anônimas dos alunos.</p>
+                            <a href="#" class="inline-block bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
+                                <i class="fas fa-trophy mr-2"></i> Exclusivadade Alunos
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-8">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            <img src="./img/brasileirao-1.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/166534?text=Tabela';">
+                            <img src="./img/brasileirao-2.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/166534?text=Jogos';">
+                            <img src="./img/brasileirao-3.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/166534?text=Ranking';">
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
+                        <img src="./img/icon-tiermake.png" alt="Ícone TierMake" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/9333EA/FFFFFF?text=Tier';">
+                        <div class="flex-grow">
+                            <h4 class="text-2xl font-bold text-white">TierMake</h4>
+                            <p class="text-purple-400 mb-3">Web App de Classificação</p>
+                            <p class="text-gray-300 mb-4">Ferramenta web moderna para criação de "Tier Lists". Organize personagens, jogos ou itens em categorias de ranking (S ao F) com interface arrastar-e-soltar.</p>
+                            <a href="#" class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
+                                <i class="fas fa-list-ol mr-2"></i> Criar Lista
+                            </a>
+                        </div>
+                    </div>
                     <div class="mt-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <img src="./img/sfs-home.jpg" class="rounded-lg w-full h-auto shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/D97706?text=Home';">
-                            <img src="./img/sfs-painel.jpg" class="rounded-lg w-full h-auto shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/D97706?text=Painel';">
-                            <img src="./img/sfs-pilotos.jpg" class="rounded-lg w-full h-auto shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/D97706?text=Pilotos';">
+                            <img src="./img/tiermake-1.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/9333EA?text=Editor';">
+                            <img src="./img/tiermake-2.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/9333EA?text=Modelos';">
+                            <img src="./img/tiermake-3.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/9333EA?text=Share';">
                         </div>
                     </div>
                 </div>
@@ -220,18 +336,75 @@
                         <div class="flex-grow">
                             <h4 class="text-2xl font-bold text-white">Clã Estrela Branca</h4>
                             <p class="text-gray-300 mb-3">Comunidade de Clash of Clans</p>
-                            <p class="text-gray-300 mb-4">Hub central para o clã 'Estrela Branca' de Clash of Clans. O site visa centralizar estratégias, regras, histórico de guerras e recrutamento para fortalecer a nossa comunidade de jogadores.</p>
-                            <a href="#" target="_blank" class="inline-block bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
-                                <i class="fas fa-wrench mr-2"></i> Em Desenvolvimento
+                            <p class="text-gray-300 mb-4">Hub central para o clã 'Estrela Branca'. O site visa centralizar estratégias, regras, histórico de guerras e recrutamento.</p>
+                            <a href="#" class="inline-block bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
+                                <i class="fas fa-wrench mr-2"></i> Em Breve
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-8">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            <img src="./img/cla-home.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/A3A3A3?text=Visão+Geral';">
+                            <img src="./img/cla-regras.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/A3A3A3?text=Regras';">
+                            <img src="./img/cla-guerra.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/A3A3A3?text=Histórico';">
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
+                        <img src="./img/icon-trunfo.png" alt="Ícone SuperTrunfoMaker" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/DC2626/FFFFFF?text=Cards';">
+                        <div class="flex-grow">
+                            <h4 class="text-2xl font-bold text-white">SuperTrunfoMaker</h4>
+                            <p class="text-red-400 mb-3">Game Creator</p>
+                            <p class="text-gray-300 mb-4">Crie seus próprios baralhos de Super Trunfo personalizados! Insira imagens, defina atributos de força, velocidade e inteligência, e desafie seus amigos em partidas customizadas.</p>
+                            <a href="#" class="inline-block bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
+                                <i class="fas fa-gamepad mr-2"></i> Jogar Agora
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-8">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            <img src="./img/trunfo-1.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/DC2626?text=Deck+Builder';">
+                            <img src="./img/trunfo-2.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/DC2626?text=Duelo';">
+                            <img src="./img/trunfo-3.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/DC2626?text=Coleção';">
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
+                        <img src="./img/icon-pixelrace.png" alt="Ícone PixelRace" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/EA580C/FFFFFF?text=8bit';">
+                        <div class="flex-grow">
+                            <h4 class="text-2xl font-bold text-white">PixelRace</h4>
+                            <p class="text-orange-400 mb-3">Jogo Arcade</p>
+                            <p class="text-gray-300 mb-4">Adrenalina em 8-bits! Um jogo de corrida arcade com visual retrô. Desvie de obstáculos, colete power-ups e bata recordes nesta homenagem aos clássicos.</p>
+                            <a href="#" class="inline-block bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
+                                <i class="fas fa-play mr-2"></i> Start Game
                             </a>
                         </div>
                     </div>
                     <div class="mt-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <img src="./img/cla-home.jpg" class="rounded-lg w-full h-auto shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/A3A3A3?text=Visão+Geral';">
-                            <img src="./img/cla-regras.jpg" class="rounded-lg w-full h-auto shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/A3A3A3?text=Regras';">
-                            <img src="./img/cla-guerra.jpg" class="rounded-lg w-full h-auto shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/A3A3A3?text=Histórico';">
+                            <img src="./img/pixelrace-1.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/EA580C?text=Gameplay';">
+                            <img src="./img/pixelrace-2.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/EA580C?text=Menu';">
+                            <img src="./img/pixelrace-3.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/EA580C?text=Score';">
                         </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
+                    <img src="./img/icon-ssspamer.png" alt="Ícone SSspamer" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/5865F2/FFFFFF?text=Bot';">
+                    <div class="flex-grow">
+                        <h4 class="text-2xl font-bold text-white">SSspamer</h4>
+                        <p class="text-indigo-400 mb-3">Bot de Investimentos (Discord)</p>
+                        <p class="text-gray-300 mb-4">Bot automatizado para gerenciar um jogo de mercado financeiro no Discord. Ele processa comandos de compra e venda de ações, registra ganhos/perdas em tempo real e armazena o portfólio completo de cada jogador.</p>
+                        <a href="#" class="inline-block bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
+                            <i class="fab fa-discord mr-2"></i> Ver Repositório
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-4 mb-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        <img src="./img/ssspamer-1.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/5865F2?text=Comandos';">
+                        <img src="./img/ssspamer-2.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/5865F2?text=Carteira';">
+                        <img src="./img/ssspamer-3.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/5865F2?text=Transações';">
                     </div>
                 </div>
 
@@ -249,34 +422,251 @@
                             </a>
                         </div>
                     </div>
+                    <div class="mt-4 mb-8">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            <img src="./img/academico-tela1.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/3B82F6?text=Tela+Inicial';">
+                            <img src="./img/academico-tela2.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/3B82F6?text=Notas';">
+                            <img src="./img/academico-tela3.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/3B82F6?text=Horários';">
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
+                        <img src="./img/icon-controlrace.png" alt="Ícone ControlRaceStats" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/0891B2/FFFFFF?text=Data';">
+                        <div class="flex-grow">
+                            <h4 class="text-2xl font-bold text-white">ControlRaceStats</h4>
+                            <p class="text-cyan-400 mb-3">Análise de Dados</p>
+                            <p class="text-gray-300 mb-4">Ferramenta avançada para análise de dados de corridas virtuais. Monitore telemetria, consumo de combustível e estatísticas de voltas para aprimorar estratégias de equipe.</p>
+                            <a href="#" class="inline-block bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
+                                <i class="fas fa-chart-line mr-2"></i> Analisar
+                            </a>
+                        </div>
+                    </div>
                     <div class="mt-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <img src="./img/academico-tela1.jpg" class="rounded-lg w-full h-auto shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/3B82F6?text=Tela+Inicial';">
-                            <img src="./img/academico-tela2.jpg" class="rounded-lg w-full h-auto shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/3B82F6?text=Notas';">
-                            <img src="./img/academico-tela3.jpg" class="rounded-lg w-full h-auto shadow-lg" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/3B82F6?text=Horários';">
+                            <img src="./img/controlrace-1.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/0891B2?text=Gráficos';">
+                            <img src="./img/controlrace-2.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/0891B2?text=Telemetria';">
+                            <img src="./img/controlrace-3.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/0891B2?text=Histórico';">
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="statsModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-md invisible opacity-0" onclick="closeModal('statsModal')">
+        <div class="modal-content bg-gray-900 border border-indigo-500/50 rounded-2xl shadow-[0_0_50px_rgba(79,70,229,0.3)] w-11/12 max-w-2xl p-8 transform scale-95 relative overflow-hidden" onclick="event.stopPropagation()">
+            
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+
+            <button onclick="closeModal('statsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl transition-colors">&times;</button>
+            
+            <div class="text-center mb-8">
+                <img src="./img/perfil.jpg" class="w-24 h-24 rounded-full mx-auto border-2 border-indigo-500 mb-4" onerror="this.src='https://placehold.co/100?text=MV'">
+                <h2 class="text-3xl font-bold text-white">Miguel Viannay</h2>
+                <p class="text-indigo-400 text-sm font-mono mt-1">Nível: <span id="user-age"></span> | Class: Data Scientist</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-400 text-sm">Projetos em 2025</span>
+                        <span class="text-white font-bold">+12</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2.5">
+                        <div class="bg-blue-500 h-2.5 rounded-full" style="width: 85%"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-400 text-sm">Linhas de Código</span>
+                        <span class="text-white font-bold">+9.000</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2.5">
+                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 70%"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-400 text-sm">Horas Codando</span>
+                        <span class="text-white font-bold">+340h</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2.5">
+                        <div class="bg-purple-500 h-2.5 rounded-full" style="width: 60%"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-400 text-sm">Nível de Satisfação</span>
+                        <span class="text-white font-bold">∞</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2.5">
+                        <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 95%"></div>
                     </div>
                 </div>
 
             </div>
+            
+            <p class="text-center text-gray-500 text-xs mt-8 font-mono">
+                User_ID: 2007-03-20_BR_RJ
+            </p>
         </div>
     </div>
 
 
     <script>
-        // O JavaScript principal continua o mesmo...
         const canvas = document.getElementById('star-background');
         const ctx = canvas.getContext('2d');
         const mainElement = document.querySelector('main');
+        
         let stars = [], numStars = 200;
+        
+        // CONFIGURAÇÃO DOS GRÁFICOS
+        let graphs = [], numGraphs = 3; // Reduzi para 3 para ficar mais limpo
+        
         let isDragging = false;
-        const spaceship = { x: -100, y: -100, lastX: -100, lastY: -100, angle: 0, visible: false, size: 15, draw() { if (!this.visible) return; ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle); const flameSize = this.size * (1 + Math.random() * 0.5); const flameX = -this.size * 1.2; ctx.beginPath(); ctx.moveTo(flameX, 0); ctx.lineTo(flameX - flameSize, -flameSize / 3); ctx.lineTo(flameX - flameSize, flameSize / 3); ctx.closePath(); const grd = ctx.createLinearGradient(flameX, 0, flameX - flameSize, 0); grd.addColorStop(0, "rgba(255, 200, 0, 1)"); grd.addColorStop(1, "rgba(255, 0, 0, 0.5)"); ctx.fillStyle = grd; ctx.fill(); ctx.beginPath(); ctx.moveTo(this.size, 0); ctx.lineTo(-this.size, -this.size / 2); ctx.lineTo(-this.size, this.size / 2); ctx.closePath(); ctx.fillStyle = '#d1d5db'; ctx.fill(); ctx.restore(); }, update(x, y) { this.x = x; this.y = y; if (this.lastX !== -100) { const dx = this.x - this.lastX; const dy = this.y - this.lastY; if(Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) { this.angle = Math.atan2(dy, dx); } } this.lastX = x; this.lastY = y; } };
+
+        const spaceship = { x: -100, y: -100, lastX: -100, lastY: -100, angle: 0, visible: false, size: 15, 
+            draw() { 
+                if (!this.visible) return; 
+                ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle); 
+                const flameSize = this.size * (1 + Math.random() * 0.5); const flameX = -this.size * 1.2; 
+                ctx.beginPath(); ctx.moveTo(flameX, 0); ctx.lineTo(flameX - flameSize, -flameSize / 3); ctx.lineTo(flameX - flameSize, flameSize / 3); ctx.closePath(); 
+                const grd = ctx.createLinearGradient(flameX, 0, flameX - flameSize, 0); grd.addColorStop(0, "rgba(255, 200, 0, 1)"); grd.addColorStop(1, "rgba(255, 0, 0, 0.5)"); 
+                ctx.fillStyle = grd; ctx.fill(); 
+                ctx.beginPath(); ctx.moveTo(this.size, 0); ctx.lineTo(-this.size, -this.size / 2); ctx.lineTo(-this.size, this.size / 2); ctx.closePath(); 
+                ctx.fillStyle = '#d1d5db'; ctx.fill(); ctx.restore(); 
+            }, 
+            update(x, y) { 
+                this.x = x; this.y = y; 
+                if (this.lastX !== -100) { const dx = this.x - this.lastX; const dy = this.y - this.lastY; if(Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) { this.angle = Math.atan2(dy, dx); } } 
+                this.lastX = x; this.lastY = y; 
+            } 
+        };
+
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        class Star { constructor() { this.reset(); this.y = Math.random() * canvas.height; } reset() { this.x = Math.random() * canvas.width; this.y = canvas.height + Math.random() * 50; this.radius = Math.random() * 1.5 + 0.5; this.alpha = Math.random(); this.deltaAlpha = Math.random() * 0.02 - 0.01; this.speed = Math.random() * 0.2 + 0.1; } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`; ctx.fill(); } update() { this.alpha += this.deltaAlpha; if (this.alpha <= 0 || this.alpha >= 1) this.deltaAlpha = -this.deltaAlpha; this.y -= this.speed; if (this.y < 0) this.reset(); this.draw(); } }
-        function init() { stars = []; for (let i = 0; i < numStars; i++) stars.push(new Star()); }
-        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); stars.forEach(star => star.update()); spaceship.draw(); requestAnimationFrame(animate); }
+
+        class Star { 
+            constructor() { this.reset(); this.y = Math.random() * canvas.height; } 
+            reset() { this.x = Math.random() * canvas.width; this.y = canvas.height + Math.random() * 50; this.radius = Math.random() * 1.5 + 0.5; this.alpha = Math.random(); this.deltaAlpha = Math.random() * 0.02 - 0.01; this.speed = Math.random() * 0.2 + 0.1; } 
+            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`; ctx.fill(); } 
+            update() { this.alpha += this.deltaAlpha; if (this.alpha <= 0 || this.alpha >= 1) this.deltaAlpha = -this.deltaAlpha; this.y -= this.speed; if (this.y < 0) this.reset(); this.draw(); } 
+        }
+
+        // CLASSE ATUALIZADA: GraphLine
+        class GraphLine {
+            constructor() {
+                this.reset(true); // true = primeira execução (pode nascer no meio)
+            }
+            reset(firstRun = false) {
+                // Define a direção: 1 = vai para direita, -1 = vai para esquerda
+                this.direction = Math.random() > 0.5 ? 1 : -1;
+                
+                if (firstRun) {
+                    this.x = Math.random() * canvas.width;
+                } else {
+                    // Se vai para direita, nasce na esquerda (-200). Se vai para esquerda, nasce na direita (width + 200)
+                    this.x = this.direction === 1 ? -200 : canvas.width + 200;
+                }
+
+                this.y = Math.random() * canvas.height;
+                this.segments = [];
+                this.speed = (0.5 + Math.random() * 1.5); // Velocidade mais suave
+                
+                this.life = 0;
+                this.maxLife = 400 + Math.random() * 300; // Vivem muito mais tempo agora
+                this.opacity = 0;
+
+                // Gera o formato da linha
+                let currentY = 0;
+                for(let i=0; i < 25; i++) { // Linhas um pouco mais longas
+                    currentY += (Math.random() - 0.5) * 40; 
+                    this.segments.push(currentY);
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                
+                // Desenha a linha segmentada
+                for(let i=0; i < this.segments.length; i++) {
+                    // Multiplica i * 15 * direction para desenhar pro lado certo
+                    ctx.lineTo(this.x + (i * 15 * this.direction), this.y + this.segments[i]);
+                }
+                
+                // Cor Cyan/Azul Tecnológico
+                ctx.strokeStyle = `rgba(6, 182, 212, ${this.opacity * 0.2})`; 
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Pontinhos
+                ctx.fillStyle = `rgba(6, 182, 212, ${this.opacity * 0.4})`;
+                for(let i=0; i < this.segments.length; i++) {
+                    if(Math.random() > 0.9) { 
+                        ctx.beginPath();
+                        ctx.arc(this.x + (i * 15 * this.direction), this.y + this.segments[i], 2, 0, Math.PI*2);
+                        ctx.fill();
+                    }
+                }
+            }
+            update() {
+                this.x += this.speed * this.direction; // Move baseada na direção
+                this.life++;
+                
+                // Fade in (aparece devagar)
+                if (this.life < 100) {
+                    this.opacity = this.life / 100;
+                } 
+                // Fade out (desaparece devagar)
+                else if (this.life > this.maxLife - 100) {
+                    this.opacity = (this.maxLife - this.life) / 100;
+                }
+
+                // Reseta se morrer ou sair muito da tela
+                if (this.life >= this.maxLife) {
+                    this.reset();
+                }
+                this.draw();
+            }
+        }
+
+        function init() { 
+            stars = []; 
+            graphs = [];
+            for (let i = 0; i < numStars; i++) stars.push(new Star()); 
+            for (let i = 0; i < numGraphs; i++) graphs.push(new GraphLine());
+        }
+
+        function animate() { 
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            stars.forEach(star => star.update()); 
+            graphs.forEach(graph => graph.update());
+            spaceship.draw(); 
+            requestAnimationFrame(animate); 
+        }
+
+        // Lógica para Calcular Idade
+        function updateAge() {
+            const birthDate = new Date('2007-03-20');
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            const ageElement = document.getElementById('user-age');
+            if(ageElement) {
+                ageElement.innerText = age + " Anos";
+            }
+        }
+
         window.addEventListener('resize', () => { resizeCanvas(); init(); });
         function getEventCoords(e) { return e.touches ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : { x: e.clientX, y: e.clientY }; }
+        
         mainElement.addEventListener('mousedown', (e) => { isDragging = true; const {x,y} = getEventCoords(e); spaceship.update(x,y); spaceship.visible = true; });
         mainElement.addEventListener('touchstart', (e) => { isDragging = true; const {x,y} = getEventCoords(e); spaceship.update(x,y); spaceship.visible = true; });
         window.addEventListener('mouseup', () => { isDragging = false; spaceship.visible = false; spaceship.lastX = -100; });
@@ -284,24 +674,31 @@
         window.addEventListener('touchend', () => { isDragging = false; spaceship.visible = false; spaceship.lastX = -100; });
         window.addEventListener('mousemove', (e) => { if (isDragging) { const {x,y} = getEventCoords(e); spaceship.update(x,y); } });
         window.addEventListener('touchmove', (e) => { if (isDragging) { e.preventDefault(); const {x,y} = getEventCoords(e); spaceship.update(x,y); } }, { passive: false });
-        function openModal(modalId) { const modal = document.getElementById(modalId); document.body.classList.add('modal-open'); modal.classList.remove('invisible', 'opacity-0'); modal.querySelector('.modal-content').classList.remove('scale-95'); }
+        
+        function openModal(modalId) { 
+            const modal = document.getElementById(modalId); 
+            document.body.classList.add('modal-open'); 
+            modal.classList.remove('invisible', 'opacity-0'); 
+            modal.querySelector('.modal-content').classList.remove('scale-95'); 
+            
+            // Se abriu o modal de stats, atualiza a idade
+            if(modalId === 'statsModal') {
+                updateAge();
+            }
+        }
+        
         function closeModal(modalId) { const modal = document.getElementById(modalId); document.body.classList.remove('modal-open'); modal.classList.add('opacity-0'); modal.querySelector('.modal-content').classList.add('scale-95'); setTimeout(() => modal.classList.add('invisible'), 300); }
         
-        // NOVO: Função de Rolagem Suave
         function smoothScroll(event, targetId) {
             event.preventDefault();
             const targetElement = document.getElementById(targetId);
             const projectList = document.getElementById('project-list');
             if (targetElement && projectList) {
                 const topPos = targetElement.offsetTop - projectList.offsetTop;
-                projectList.scrollTo({
-                    top: topPos,
-                    behavior: 'smooth'
-                });
+                projectList.scrollTo({ top: topPos, behavior: 'smooth' });
             }
         }
 
-        // Inicia tudo
         resizeCanvas();
         init();
         animate();
