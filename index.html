@@ -3,706 +3,703 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miguel Viannay - Portfólio</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
+    <title>Miguel Viannay — OneLink</title>
+    <meta name="description" content="Personal Link Hub de Miguel Viannay. Founder of OneViannay — Software & Digital Products.">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph / Meta -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Miguel Viannay — OneLink">
+    <meta property="og:description" content="Founder of OneViannay · Software & Digital Products">
+    <meta property="og:image" content="./img/miguel.webp">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="./img/favicon.webp">
+    <link rel="apple-touch-icon" href="./img/favicon.webp">
+
+    <!-- Typography (Inter & JetBrains Mono) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --bg: #000000;
+            --surface: rgba(255, 255, 255, 0.02);
+            --surface-hover: rgba(255, 255, 255, 0.045);
+            --surface-active: rgba(255, 255, 255, 0.07);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.22);
+            --border-bright: rgba(255, 255, 255, 0.35);
+            
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color-scheme: dark;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 50% 8%, rgba(255, 255, 255, 0.04) 0%, transparent 60%),
+                radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 100% 100%, 28px 28px;
+            background-position: center top;
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 56px 20px 36px;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        body.modal-open {
-            overflow: hidden;
-        }
-
-        #star-background {
+        /* Subtle Ambient Glow */
+        .ambient-layer {
             position: fixed;
             top: 0;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 100%;
-            height: 100%;
-            z-index: -1;
+            max-width: 800px;
+            height: 380px;
+            background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255, 255, 255, 0.035), transparent 80%);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .no-select {
-            -webkit-user-select: none; /* Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE 10+ */
-            user-select: none; /* Padrão */
-        }
-
-        .interactive-background {
-            cursor: grab;
-        }
-        .interactive-background:active {
-            cursor: grabbing;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
-
-        .profile-pic { opacity: 0; animation-delay: 0.2s; }
-        .name-block { opacity: 0; animation-delay: 0.4s; }
-        .about-card { opacity: 0; animation-delay: 0.6s; }
-        .projects-card { opacity: 0; animation-delay: 0.7s; }
-        .contact-card { opacity: 0; animation-delay: 0.8s; }
-        .footer-text { opacity: 0; animation-delay: 1s; }
-
-        .modal {
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .modal-content {
-            transition: transform 0.3s ease;
-        }
-
-        /* Estilos para as imagens dos projetos */
-        .project-screenshot {
+        /* Main Container */
+        .hub-container {
             width: 100%;
-            height: 150px; /* Ajuste a altura conforme desejar */
-            object-fit: cover; /* Mantém a proporção e cobre o espaço */
-            border-radius: 0.5rem;
+            max-width: 440px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Estilos customizados para a barra de rolagem (Webkit browsers - Chrome, Safari) */
-        #project-list::-webkit-scrollbar {
-            width: 8px;
+        /* Profile Header */
+        .profile-section {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+            width: 100%;
         }
 
-        #project-list::-webkit-scrollbar-track {
-            background: #1E293B; /* Cor do fundo da track */
-            border-radius: 4px;
+        .avatar-wrap {
+            position: relative;
+            margin-bottom: 20px;
         }
 
-        #project-list::-webkit-scrollbar-thumb {
-            background-color: #3B82F6; /* Cor do "polegar" */
-            border-radius: 4px;
+        .avatar-img {
+            width: 92px;
+            height: 92px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 
+                0 0 0 4px rgba(255, 255, 255, 0.02),
+                0 12px 36px rgba(0, 0, 0, 0.8);
+            transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
         }
 
-        #project-list::-webkit-scrollbar-thumb:hover {
-            background-color: #60A5FA;
+        .avatar-wrap:hover .avatar-img {
+            transform: scale(1.03);
+            border-color: var(--border-hover);
         }
 
-        /* Estilos customizados para a barra de rolagem (Firefox) */
-        #project-list {
-            scrollbar-width: thin;
-            scrollbar-color: #3B82F6 #1E293B;
+        .profile-name {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            line-height: 1.25;
+            margin-bottom: 4px;
+        }
+
+        .profile-handle {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 400;
+            display: inline-block;
+            margin-bottom: 14px;
+            transition: color 0.2s var(--ease);
+        }
+
+        .profile-handle:hover {
+            color: var(--text-primary);
+        }
+
+        /* Brand Affiliation Badge */
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 5px 12px 5px 8px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            transition: all 0.25s var(--ease);
+            margin-bottom: 10px;
+        }
+
+        .brand-badge:hover {
+            border-color: var(--border-hover);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .brand-badge-img {
+            width: 15px;
+            height: 15px;
+            object-fit: contain;
+            display: block;
+            filter: brightness(1);
+        }
+
+        .role-descriptor {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            margin-bottom: 14px;
+        }
+
+        .profile-bio {
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            max-width: 380px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Links Hub List */
+        .links-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+            margin-top: 4px;
+        }
+
+        .link-card {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 18px;
+            border-radius: 14px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: 
+                transform 0.22s var(--ease),
+                border-color 0.22s var(--ease),
+                background-color 0.22s var(--ease),
+                box-shadow 0.22s var(--ease);
+            position: relative;
+            outline: none;
+        }
+
+        .link-card:focus-visible {
+            border-color: var(--border-bright);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15);
+        }
+
+        .link-card:hover {
+            transform: translateX(4px);
+            background-color: var(--surface-hover);
+            border-color: var(--border-hover);
+        }
+
+        .link-card:active {
+            transform: translateX(2px) scale(0.995);
+            background-color: var(--surface-active);
+        }
+
+        .link-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .link-icon-box {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--text-secondary);
+            transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+        }
+
+        .link-card:hover .link-icon-box {
+            color: var(--text-primary);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .link-icon-box svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 1.75;
+        }
+
+        .link-icon-brand {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .link-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+            text-align: left;
+        }
+
+        .link-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .link-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color 0.2s var(--ease);
+        }
+
+        .link-card:hover .link-desc {
+            color: var(--text-secondary);
+        }
+
+        .link-arrow {
+            color: var(--text-muted);
+            flex-shrink: 0;
+            margin-left: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.22s var(--ease), color 0.22s var(--ease);
+        }
+
+        .link-arrow svg {
+            width: 15px;
+            height: 15px;
+            stroke-width: 2;
+        }
+
+        .link-card:hover .link-arrow {
+            color: var(--text-primary);
+            transform: translate(2px, -2px);
+        }
+
+        /* Footer */
+        .hub-footer {
+            margin-top: 48px;
+            text-align: center;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11.5px;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s var(--ease);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer-link:hover {
+            color: var(--text-secondary);
+        }
+
+        .footer-brand-mark {
+            width: 11px;
+            height: 11px;
+            object-fit: contain;
+            opacity: 0.65;
+            transition: opacity 0.2s var(--ease);
+        }
+
+        .footer-link:hover .footer-brand-mark {
+            opacity: 1;
+        }
+
+        .footer-dot {
+            color: rgba(255, 255, 255, 0.18);
+        }
+
+        /* Entrance Animations (Fast, non-blocking staggered sequence) */
+        @keyframes entranceFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .anim-item {
+            opacity: 0;
+            animation: entranceFadeUp 0.4s var(--ease) forwards;
+        }
+
+        .anim-d1 { animation-delay: 0.04s; }
+        .anim-d2 { animation-delay: 0.08s; }
+        .anim-d3 { animation-delay: 0.12s; }
+        .anim-d4 { animation-delay: 0.16s; }
+        .anim-d5 { animation-delay: 0.20s; }
+        .anim-d6 { animation-delay: 0.24s; }
+        .anim-d7 { animation-delay: 0.28s; }
+        .anim-d8 { animation-delay: 0.32s; }
+        .anim-d9 { animation-delay: 0.36s; }
+        .anim-d10 { animation-delay: 0.40s; }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            .anim-item {
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important;
+            }
+            .link-card, .link-arrow, .avatar-img {
+                transition: none !important;
+            }
+            .link-card:hover {
+                transform: none !important;
+            }
+            .link-card:hover .link-arrow {
+                transform: none !important;
+            }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 440px) {
+            body {
+                padding: 44px 16px 28px;
+            }
+            .avatar-img {
+                width: 86px;
+                height: 86px;
+            }
+            .profile-name {
+                font-size: 21px;
+            }
+            .link-card {
+                padding: 13.5px 15px;
+            }
+            .link-icon-box {
+                width: 34px;
+                height: 34px;
+            }
+            .link-icon-box svg {
+                width: 17px;
+                height: 17px;
+            }
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-gray-900 via-blue-900 to-black text-white">
-    
-    <canvas id="star-background"></canvas>
+<body>
 
-    <main class="relative z-10 flex flex-col items-center justify-center min-h-screen p-4 overflow-x-hidden no-select interactive-background">
-        
-        <div class="w-full max-w-md mx-auto text-center">
-            
-            <img src="./img/perfil.jpg" 
-                alt="Foto de Perfil de Miguel Viannay" 
-                onclick="openModal('statsModal')"
-                class="profile-pic animate-fade-in w-32 h-32 mx-auto rounded-full border-4 border-blue-500/50 shadow-lg transform transition-transform duration-500 hover:scale-110 cursor-pointer hover:border-blue-400" 
-                onerror="this.onerror=null; this.src='https://placehold.co/128x128/3B82F6/FFFFFF?text=MV';">
+    <!-- Ambient Subtle Layer -->
+    <div class="ambient-layer" aria-hidden="true"></div>
 
-            <div class="name-block animate-fade-in">
-                <h1 class="text-3xl font-bold mt-4 text-gray-100">Miguel Viannay</h1>
-                <a href="https://instagram.com/mig.viannay" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">@mig.viannay</a>
+    <main class="hub-container" id="main-content">
+
+        <!-- Personal Identity Section -->
+        <header class="profile-section">
+            <div class="avatar-wrap anim-item anim-d1">
+                <img 
+                    src="./img/miguel.webp" 
+                    alt="Miguel Viannay" 
+                    class="avatar-img"
+                    width="92"
+                    height="92"
+                    loading="eager"
+                />
             </div>
 
-            <div class="about-card animate-fade-in bg-white/10 backdrop-blur-sm rounded-xl p-6 mt-6 shadow-2xl text-left">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-xl font-semibold text-blue-300">Sobre Mim</h2>
-                    <button onclick="openModal('aboutModal')" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">Minha História</button>
-                </div>
-                <p class="text-gray-300 text-base mt-2">
-                    Salve! Sou estudante de Ciências Exatas na UFJF, curto muito analisar dados e desenvolver projetos na área de tecnologia. Com essa visão, busco criar soluções conectando o mundo real com o digital.
-                </p>
-            </div>
+            <h1 class="profile-name anim-item anim-d2">Miguel Viannay</h1>
 
-            <div class="projects-card animate-fade-in bg-white/10 backdrop-blur-sm rounded-xl p-6 mt-4 shadow-2xl text-left">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-xl font-semibold text-blue-300">Meus Projetos</h2>
-                    <button onclick="openModal('projectsModal')" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">Ver Tudo</button>
-                </div>
-                <p class="text-gray-300 text-base mt-2">
-                    A seguir mostro alguns projetos que venho realizando ao longo de minha trajetória como aprendiz.
-                </p>
-            </div>
-
-            <div class="contact-card animate-fade-in bg-white/10 backdrop-blur-sm rounded-xl p-6 mt-4 shadow-2xl text-left">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-xl font-semibold text-cyan-300">Certificações</h2>
-                    <button onclick="openModal('certsModal')" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">Ver Conquistas</button>
-                </div>
-                <p class="text-gray-300 text-base mt-2">
-                    Minhas qualificações técnicas, cursos e especializações na área de Dados e Tecnologia.
-                </p>
-            </div>
-
-            <a href="https://github.com/MiguelViannay" target="_blank" rel="noopener noreferrer" class="contact-card animate-fade-in group block bg-gray-700/50 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-gray-600/80 hover:shadow-2xl mt-8">
-                <span class="group-hover:tracking-wider transition-all duration-300">
-                    <i class="fab fa-github fa-lg mr-3"></i> Veja mais projetos no meu GitHub
-                </span>
+            <a 
+                href="https://www.instagram.com/mig.viannay/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="profile-handle anim-item anim-d3"
+                title="Instagram @mig.viannay"
+            >
+                @mig.viannay
             </a>
-        </div>
 
-        <footer class="footer-text animate-fade-in absolute bottom-4 text-center w-full no-select">
-            <p class="text-gray-500 text-sm">
-                Copyright &copy; 2025 <a href="https://www.instagram.com/oneviannay/" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-colors">One Viannay</a>
+            <!-- Brand Affiliation & Role -->
+            <div class="anim-item anim-d4">
+                <a 
+                    href="https://oneviannay.com.br" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="brand-badge"
+                    title="Acessar OneViannay"
+                >
+                    <img src="./img/brand-mark.webp" alt="OneViannay Brand Mark" class="brand-badge-img" />
+                    <span>Founder of OneViannay</span>
+                </a>
+            </div>
+
+            <p class="role-descriptor anim-item anim-d4">Software &amp; Digital Products</p>
+
+            <!-- Concise Intro -->
+            <p class="profile-bio anim-item anim-d5">
+                Criando software, explorando tecnologia e construindo a OneViannay.
             </p>
+        </header>
+
+        <!-- Curated Link Hub -->
+        <section class="links-list" aria-label="Links Principais">
+
+            <!-- 1. OneViannay Official Website -->
+            <a 
+                href="https://oneviannay.com.br" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="link-card anim-item anim-d5"
+                id="link-oneviannay"
+            >
+                <div class="link-left">
+                    <div class="link-icon-box" aria-hidden="true">
+                        <img src="./img/brand-mark.webp" alt="" class="link-icon-brand" />
+                    </div>
+                    <div class="link-text">
+                        <span class="link-title">OneViannay</span>
+                        <span class="link-desc">Software Studio &amp; Produtos Digitais</span>
+                    </div>
+                </div>
+                <div class="link-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- 2. OneViannay: Photo Gallery (Google Play Store) -->
+            <a 
+                href="https://play.google.com/store/apps/details?id=br.com.oneviannay.onegallery" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="link-card anim-item anim-d6"
+                id="link-gallery"
+            >
+                <div class="link-left">
+                    <div class="link-icon-box" aria-hidden="true">
+                        <!-- Smartphone / App Icon -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                        </svg>
+                    </div>
+                    <div class="link-text">
+                        <span class="link-title">OneViannay: Photo Gallery</span>
+                        <span class="link-desc">App Oficial na Google Play</span>
+                    </div>
+                </div>
+                <div class="link-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- 3. GitHub -->
+            <a 
+                href="https://github.com/MiguelViannay" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="link-card anim-item anim-d7"
+                id="link-github"
+            >
+                <div class="link-left">
+                    <div class="link-icon-box" aria-hidden="true">
+                        <!-- GitHub Icon -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                    </div>
+                    <div class="link-text">
+                        <span class="link-title">GitHub</span>
+                        <span class="link-desc">@MiguelViannay · Repositórios e Código</span>
+                    </div>
+                </div>
+                <div class="link-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- 4. LinkedIn -->
+            <a 
+                href="https://www.linkedin.com/in/miguelviannay" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="link-card anim-item anim-d8"
+                id="link-linkedin"
+            >
+                <div class="link-left">
+                    <div class="link-icon-box" aria-hidden="true">
+                        <!-- LinkedIn Icon -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </div>
+                    <div class="link-text">
+                        <span class="link-title">LinkedIn</span>
+                        <span class="link-desc">Miguel Viannay · Conexão Profissional</span>
+                    </div>
+                </div>
+                <div class="link-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- 5. Instagram -->
+            <a 
+                href="https://www.instagram.com/mig.viannay/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="link-card anim-item anim-d9"
+                id="link-instagram"
+            >
+                <div class="link-left">
+                    <div class="link-icon-box" aria-hidden="true">
+                        <!-- Instagram Icon -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </div>
+                    <div class="link-text">
+                        <span class="link-title">Instagram</span>
+                        <span class="link-desc">@mig.viannay · Pessoal &amp; Projetos</span>
+                    </div>
+                </div>
+                <div class="link-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- 6. Email (Direct Contact) -->
+            <a 
+                href="mailto:viannaymiguel@gmail.com" 
+                class="link-card anim-item anim-d10"
+                id="link-email"
+            >
+                <div class="link-left">
+                    <div class="link-icon-box" aria-hidden="true">
+                        <!-- Mail Icon -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </div>
+                    <div class="link-text">
+                        <span class="link-title">Email</span>
+                        <span class="link-desc">viannaymiguel@gmail.com</span>
+                    </div>
+                </div>
+                <div class="link-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                </div>
+            </a>
+
+        </section>
+
+        <!-- Minimal Footer -->
+        <footer class="hub-footer anim-item anim-d10">
+            <div class="footer-content">
+                <span>&copy; 2026 Miguel Viannay</span>
+                <span class="footer-dot">&middot;</span>
+                <a href="https://oneviannay.com.br" target="_blank" rel="noopener noreferrer" class="footer-link">
+                    <img src="./img/brand-mark.webp" alt="OneViannay" class="footer-brand-mark" />
+                    <span>OneViannay</span>
+                </a>
+            </div>
         </footer>
+
     </main>
-
-    <div id="aboutModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm invisible opacity-0" onclick="closeModal('aboutModal')">
-        <div class="modal-content bg-gray-900/80 border border-blue-500/30 rounded-2xl shadow-2xl w-11/12 max-w-2xl p-8 transform scale-95" onclick="event.stopPropagation()">
-            <button onclick="closeModal('aboutModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl">&times;</button>
-            <h2 class="text-3xl font-bold text-blue-300 mb-6">Minha Jornada</h2>
-            
-            <div class="space-y-6 text-gray-300 text-lg max-h-[70vh] overflow-y-auto pr-4">
-                <section>
-                    <h3 class="font-semibold text-xl text-white mb-2">Quem Eu Sou</h3>
-                    <p>Opa, Miguel aqui! Minha jornada na tecnologia começou quando ainda era bem jovem. Desde pequeno sempre gostei de utilizar aparelhos digitais e tentar entender o máximo de como cada coisa funcionava.
-                </section>
-                <section>
-                    <h3 class="font-semibold text-xl text-white mb-2">Formação e Conhecimento</h3>
-                    <p>Atualmente, curso Ciências Exatas na UFJF. A faculdade me dá a base sólida em lógica e computação, e fundamentos estatísticos enquanto utilizo meus projetos pessoais para por em pratica tudo que aprendo.</p>
-                </section>
-                <section>
-                    <h3 class="font-semibold text-xl text-white mb-2">Paixões Além do Código</h3>
-                    <p>Além de online, você pode me encontrar lendo bons livros, assistindo a videos casuais no YouTube ou jogando alguns jogos de carta. Com isso, posso desenvolver minha criatividade e relaxar um pouco. Além disso, sou apaixonado na pela equipe francesa, Alpine, de Fórmula 1.</p>
-                </section>
-                <section>
-                    <h3 class="font-semibold text-xl text-white mb-2">Quer trocar uma ideia?</h3>
-                    <p>Você pode me mandar um direct no Instagram <a href="https://instagram.com/mig.viannay" target="_blank" class="text-blue-400 hover:underline">@mig.viannay</a>, ou se quiser ser mais formal, pode me enviar um email: viannaymiguel@gmail.com. </p>
-                </section>
-            </div>
-        </div>
-    </div>
-
-    <div id="certsModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm invisible opacity-0" onclick="closeModal('certsModal')">
-        <div class="modal-content bg-gray-900/80 border border-cyan-500/30 rounded-2xl shadow-2xl w-11/12 max-w-4xl p-8 transform scale-95" onclick="event.stopPropagation()">
-            <button onclick="closeModal('certsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl">&times;</button>
-            <h2 class="text-3xl font-bold text-cyan-300 mb-2">Certificações e Cursos</h2>
-            <p class="text-gray-400 mb-6">Aprendizado contínuo em Análise de Dados e Desenvolvimento.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
-                
-                <div class="bg-white/5 p-4 rounded-lg border-l-4 border-cyan-500 hover:bg-white/10 transition-colors">
-                    <h3 class="font-bold text-white text-lg">Análise de Dados: Fundamentos</h3>
-                    <p class="text-cyan-400 text-sm mb-2">UFJF / Xperium / DIO</p>
-                    <p class="text-gray-400 text-sm">Conceitos de estatística, limpeza de dados e visualização inicial.</p>
-                    <div class="mt-3 flex gap-2">
-                        <span class="text-xs bg-cyan-900 text-cyan-200 px-2 py-1 rounded">Python</span>
-                        <span class="text-xs bg-cyan-900 text-cyan-200 px-2 py-1 rounded">MySQL</span>
-                    </div>
-                </div>
-
-                <div class="bg-white/5 p-4 rounded-lg border-l-4 border-blue-500 hover:bg-white/10 transition-colors">
-                    <h3 class="font-bold text-white text-lg">Power BI para Business Intelligence</h3>
-                    <p class="text-blue-400 text-sm mb-2">Xperium</p>
-                    <p class="text-gray-400 text-sm">Criação de Dashboards interativos e modelagem de dados.</p>
-                    <div class="mt-3 flex gap-2">
-                        <span class="text-xs bg-blue-900 text-blue-200 px-2 py-1 rounded">DAX</span>
-                        <span class="text-xs bg-blue-900 text-blue-200 px-2 py-1 rounded">Power Query</span>
-                    </div>
-                </div>
-
-                <div class="bg-white/5 p-4 rounded-lg border-l-4 border-yellow-500 hover:bg-white/10 transition-colors">
-                    <h3 class="font-bold text-white text-lg">SQL Database Advanced</h3>
-                    <p class="text-yellow-400 text-sm mb-2">Xperium / DIO / DankiCode</p>
-                    <p class="text-gray-400 text-sm">Modelagem de banco de dados relacional e queries avançadas.</p>
-                    <div class="mt-3 flex gap-2">
-                        <span class="text-xs bg-yellow-900 text-yellow-200 px-2 py-1 rounded">MySQL</span>
-                        <span class="text-xs bg-yellow-900 text-yellow-200 px-2 py-1 rounded">Database</span>
-                    </div>
-                </div>
-
-                <div class="bg-white/5 p-4 rounded-lg border-l-4 border-purple-500 hover:bg-white/10 transition-colors">
-                    <h3 class="font-bold text-white text-lg">Web Development Fullstack</h3>
-                    <p class="text-purple-400 text-sm mb-2">DankiCode / Inteligência Artificial</p>
-                    <p class="text-gray-400 text-sm">Desenvolvimento de interfaces modernas e APIs.</p>
-                    <div class="mt-3 flex gap-2">
-                        <span class="text-xs bg-purple-900 text-purple-200 px-2 py-1 rounded">HTML/CSS</span>
-                        <span class="text-xs bg-purple-900 text-purple-200 px-2 py-1 rounded">JS / Node.js</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div id="projectsModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm invisible opacity-0" onclick="closeModal('projectsModal')">
-        <div class="modal-content bg-gray-900/80 border border-blue-500/30 rounded-2xl shadow-2xl w-11/12 max-w-4xl p-8 transform scale-95" onclick="event.stopPropagation()">
-            <button onclick="closeModal('projectsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl">&times;</button>
-            <h2 class="text-3xl font-bold text-blue-300 mb-2">Galeria de Projetos</h2>
-            <p class="text-gray-400 mb-6">Uma amostra do que eu ando criando por aí.</p>
-
-            <div class="bg-yellow-500/10 border-l-4 border-yellow-500 p-4 mb-8 rounded-r-lg flex items-center gap-4">
-                <div class="bg-yellow-500/20 p-2 rounded-full">
-                    <i class="fas fa-exclamation-triangle text-red-500 text-xl"></i>
-                </div>
-                <div>
-                    <h4 class="font-bold text-yellow-400 text-sm uppercase mb-1">Status: Em Atualização</h4>
-                    <p class="text-yellow-100/80 text-sm">
-                        O portfólio está passando por melhorias. O conteúdo pode conter erros e apresentar projetos não acabados.
-                    </p>
-                </div>
-            </div>
-            
-            <div class="flex items-center justify-center gap-2 md:gap-4 mb-8 flex-wrap">
-                <a href="#cat-websites" onclick="smoothScroll(event, 'cat-websites')" class="bg-white/10 hover:bg-white/20 text-white font-semibold py-2 px-4 rounded-full text-sm transition-colors duration-300">Websites & eSports</a>
-                <a href="#cat-games" onclick="smoothScroll(event, 'cat-games')" class="bg-white/10 hover:bg-white/20 text-white font-semibold py-2 px-4 rounded-full text-sm transition-colors duration-300">Games & Comunidades</a>
-                <a href="#cat-produtividade" onclick="smoothScroll(event, 'cat-produtividade')" class="bg-white/10 hover:bg-white/20 text-white font-semibold py-2 px-4 rounded-full text-sm transition-colors duration-300">Produtividade</a>
-            </div>
-
-            <div id="project-list" class="max-h-[60vh] overflow-y-auto pr-4 space-y-12">
-    
-                <div id="cat-websites">
-                    <h3 class="text-2xl font-semibold text-white mb-4 border-b-2 border-blue-500/30 pb-2">Websites & eSports</h3>
-                    
-                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
-                        <img src="./img/icon-sfs.png" alt="Ícone SFS Force Speed" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/D97706/FFFFFF?text=SFS';">
-                        <div class="flex-grow">
-                            <h4 class="text-2xl font-bold text-white">SFS Force Speed</h4>
-                            <p class="text-yellow-400 mb-3">Equipe de eSports</p>
-                            <p class="text-gray-300 mb-4">Website e painel de controle para a SFS Force Speed. O projeto inclui identidade visual, telemetria e um espaço para a comunidade de pilotos.</p>
-                            <a href="https://sfs-force-speed.web.app" target="_blank" class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
-                                <i class="fas fa-globe mr-2"></i> Visitar Site
-                            </a>
-                        </div>
-                    </div>
-                    <div class="mt-4 mb-8">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <img src="./img/sfs-home.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/D97706?text=SFS+Home';">
-                            <img src="./img/sfs-painel.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/D97706?text=Painel';">
-                            <img src="./img/sfs-pilotos.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/D97706?text=Pilotos';">
-                        </div>
-                    </div>
-
-                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
-                        <img src="./img/icon-brasileirao.png" alt="Ícone CE Brasileirão" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/166534/FFFFFF?text=UFJF';">
-                        <div class="flex-grow">
-                            <h4 class="text-2xl font-bold text-white">CE-Brasileirão UFJF</h4>
-                            <p class="text-green-400 mb-3">Campeonato Universitário</p>
-                            <p class="text-gray-300 mb-4">Plataforma interativa para o campeonato de pontos do curso de Ciências Exatas da UFJF. Objetivo de simular vagas em tempo real para o segundo-ciclo com estatísticas anônimas dos alunos.</p>
-                            <a href="#" class="inline-block bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
-                                <i class="fas fa-trophy mr-2"></i> Exclusivadade Alunos
-                            </a>
-                        </div>
-                    </div>
-                    <div class="mt-4 mb-8">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <img src="./img/brasileirao-1.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/166534?text=Tabela';">
-                            <img src="./img/brasileirao-2.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/166534?text=Jogos';">
-                            <img src="./img/brasileirao-3.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/166534?text=Ranking';">
-                        </div>
-                    </div>
-
-                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
-                        <img src="./img/icon-tiermake.png" alt="Ícone TierMake" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/9333EA/FFFFFF?text=Tier';">
-                        <div class="flex-grow">
-                            <h4 class="text-2xl font-bold text-white">TierMake</h4>
-                            <p class="text-purple-400 mb-3">Web App de Classificação</p>
-                            <p class="text-gray-300 mb-4">Ferramenta web moderna para criação de "Tier Lists". Organize personagens, jogos ou itens em categorias de ranking (S ao F) com interface arrastar-e-soltar.</p>
-                            <a href="#" class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
-                                <i class="fas fa-list-ol mr-2"></i> Criar Lista
-                            </a>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <img src="./img/tiermake-1.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/9333EA?text=Editor';">
-                            <img src="./img/tiermake-2.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/9333EA?text=Modelos';">
-                            <img src="./img/tiermake-3.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/9333EA?text=Share';">
-                        </div>
-                    </div>
-                </div>
-
-                <div id="cat-games">
-                    <h3 class="text-2xl font-semibold text-white mb-4 border-b-2 border-blue-500/30 pb-2">Games & Comunidades</h3>
-                    
-                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
-                        <img src="./img/icon-cla.png" alt="Ícone Clã Estrela Branca" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/A3A3A3/FFFFFF?text=EB';">
-                        <div class="flex-grow">
-                            <h4 class="text-2xl font-bold text-white">Clã Estrela Branca</h4>
-                            <p class="text-gray-300 mb-3">Comunidade de Clash of Clans</p>
-                            <p class="text-gray-300 mb-4">Hub central para o clã 'Estrela Branca'. O site visa centralizar estratégias, regras, histórico de guerras e recrutamento.</p>
-                            <a href="#" class="inline-block bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
-                                <i class="fas fa-wrench mr-2"></i> Em Breve
-                            </a>
-                        </div>
-                    </div>
-                    <div class="mt-4 mb-8">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <img src="./img/cla-home.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/A3A3A3?text=Visão+Geral';">
-                            <img src="./img/cla-regras.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/A3A3A3?text=Regras';">
-                            <img src="./img/cla-guerra.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/A3A3A3?text=Histórico';">
-                        </div>
-                    </div>
-
-                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
-                        <img src="./img/icon-trunfo.png" alt="Ícone SuperTrunfoMaker" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/DC2626/FFFFFF?text=Cards';">
-                        <div class="flex-grow">
-                            <h4 class="text-2xl font-bold text-white">SuperTrunfoMaker</h4>
-                            <p class="text-red-400 mb-3">Game Creator</p>
-                            <p class="text-gray-300 mb-4">Crie seus próprios baralhos de Super Trunfo personalizados! Insira imagens, defina atributos de força, velocidade e inteligência, e desafie seus amigos em partidas customizadas.</p>
-                            <a href="#" class="inline-block bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
-                                <i class="fas fa-gamepad mr-2"></i> Jogar Agora
-                            </a>
-                        </div>
-                    </div>
-                    <div class="mt-4 mb-8">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <img src="./img/trunfo-1.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/DC2626?text=Deck+Builder';">
-                            <img src="./img/trunfo-2.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/DC2626?text=Duelo';">
-                            <img src="./img/trunfo-3.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/DC2626?text=Coleção';">
-                        </div>
-                    </div>
-
-                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
-                        <img src="./img/icon-pixelrace.png" alt="Ícone PixelRace" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/EA580C/FFFFFF?text=8bit';">
-                        <div class="flex-grow">
-                            <h4 class="text-2xl font-bold text-white">PixelRace</h4>
-                            <p class="text-orange-400 mb-3">Jogo Arcade</p>
-                            <p class="text-gray-300 mb-4">Adrenalina em 8-bits! Um jogo de corrida arcade com visual retrô. Desvie de obstáculos, colete power-ups e bata recordes nesta homenagem aos clássicos.</p>
-                            <a href="#" class="inline-block bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
-                                <i class="fas fa-play mr-2"></i> Start Game
-                            </a>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <img src="./img/pixelrace-1.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/EA580C?text=Gameplay';">
-                            <img src="./img/pixelrace-2.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/EA580C?text=Menu';">
-                            <img src="./img/pixelrace-3.png" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/EA580C?text=Score';">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
-                    <img src="./img/icon-ssspamer.png" alt="Ícone SSspamer" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/5865F2/FFFFFF?text=Bot';">
-                    <div class="flex-grow">
-                        <h4 class="text-2xl font-bold text-white">SSspamer</h4>
-                        <p class="text-indigo-400 mb-3">Bot de Investimentos (Discord)</p>
-                        <p class="text-gray-300 mb-4">Bot automatizado para gerenciar um jogo de mercado financeiro no Discord. Ele processa comandos de compra e venda de ações, registra ganhos/perdas em tempo real e armazena o portfólio completo de cada jogador.</p>
-                        <a href="#" class="inline-block bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
-                            <i class="fab fa-discord mr-2"></i> Ver Repositório
-                        </a>
-                    </div>
-                </div>
-                <div class="mt-4 mb-8">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                        <img src="./img/ssspamer-1.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/5865F2?text=Comandos';">
-                        <img src="./img/ssspamer-2.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/5865F2?text=Carteira';">
-                        <img src="./img/ssspamer-3.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/5865F2?text=Transações';">
-                    </div>
-                </div>
-
-                <div id="cat-produtividade">
-                    <h3 class="text-2xl font-semibold text-white mb-4 border-b-2 border-blue-500/30 pb-2">Produtividade</h3>
-                    
-                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
-                        <img src="./img/icon-academico.png" alt="Ícone do App Controle Acadêmico" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/1E40AF/FFFFFF?text=AC';">
-                        <div class="flex-grow">
-                            <h4 class="text-2xl font-bold text-white">Controle Acadêmico</h4>
-                            <p class="text-blue-300 mb-3">One Viannay</p>
-                            <p class="text-gray-300 mb-4">Gerencie sua vida estudantil com facilidade. O Controle Acadêmico ajuda a organizar suas notas, faltas e horários. Ideal para estudantes que buscam otimizar seu desempenho.</p>
-                            <a href="https://github.com/MiguelViannay/Academic-Control/archive/refs/heads/main.zip" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
-                                <i class="fas fa-download mr-2"></i> Baixar (.zip)
-                            </a>
-                        </div>
-                    </div>
-                    <div class="mt-4 mb-8">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <img src="./img/academico-tela1.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/3B82F6?text=Tela+Inicial';">
-                            <img src="./img/academico-tela2.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/3B82F6?text=Notas';">
-                            <img src="./img/academico-tela3.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/3B82F6?text=Horários';">
-                        </div>
-                    </div>
-
-                    <div class="bg-white/10 rounded-xl p-6 flex flex-col md:flex-row gap-6 mt-4">
-                        <img src="./img/icon-controlrace.png" alt="Ícone ControlRaceStats" class="w-32 h-32 rounded-3xl mx-auto md:mx-0 flex-shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/128x128/0891B2/FFFFFF?text=Data';">
-                        <div class="flex-grow">
-                            <h4 class="text-2xl font-bold text-white">ControlRaceStats</h4>
-                            <p class="text-cyan-400 mb-3">Análise de Dados</p>
-                            <p class="text-gray-300 mb-4">Ferramenta avançada para análise de dados de corridas virtuais. Monitore telemetria, consumo de combustível e estatísticas de voltas para aprimorar estratégias de equipe.</p>
-                            <a href="#" class="inline-block bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
-                                <i class="fas fa-chart-line mr-2"></i> Analisar
-                            </a>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <img src="./img/controlrace-1.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/0891B2?text=Gráficos';">
-                            <img src="./img/controlrace-2.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/0891B2?text=Telemetria';">
-                            <img src="./img/controlrace-3.jpg" class="project-screenshot" onerror="this.onerror=null; this.src='https://placehold.co/600x400/020617/0891B2?text=Histórico';">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="statsModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-md invisible opacity-0" onclick="closeModal('statsModal')">
-        <div class="modal-content bg-gray-900 border border-indigo-500/50 rounded-2xl shadow-[0_0_50px_rgba(79,70,229,0.3)] w-11/12 max-w-2xl p-8 transform scale-95 relative overflow-hidden" onclick="event.stopPropagation()">
-            
-            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
-
-            <button onclick="closeModal('statsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl transition-colors">&times;</button>
-            
-            <div class="text-center mb-8">
-                <img src="./img/perfil.jpg" class="w-24 h-24 rounded-full mx-auto border-2 border-indigo-500 mb-4" onerror="this.src='https://placehold.co/100?text=MV'">
-                <h2 class="text-3xl font-bold text-white">Miguel Viannay</h2>
-                <p class="text-indigo-400 text-sm font-mono mt-1">Nível: <span id="user-age"></span> | Class: Data Scientist</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-                    <div class="flex justify-between mb-2">
-                        <span class="text-gray-400 text-sm">Projetos em 2025</span>
-                        <span class="text-white font-bold">+12</span>
-                    </div>
-                    <div class="w-full bg-gray-700 rounded-full h-2.5">
-                        <div class="bg-blue-500 h-2.5 rounded-full" style="width: 85%"></div>
-                    </div>
-                </div>
-
-                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-                    <div class="flex justify-between mb-2">
-                        <span class="text-gray-400 text-sm">Linhas de Código</span>
-                        <span class="text-white font-bold">+9.000</span>
-                    </div>
-                    <div class="w-full bg-gray-700 rounded-full h-2.5">
-                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 70%"></div>
-                    </div>
-                </div>
-
-                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-                    <div class="flex justify-between mb-2">
-                        <span class="text-gray-400 text-sm">Horas Codando</span>
-                        <span class="text-white font-bold">+340h</span>
-                    </div>
-                    <div class="w-full bg-gray-700 rounded-full h-2.5">
-                        <div class="bg-purple-500 h-2.5 rounded-full" style="width: 60%"></div>
-                    </div>
-                </div>
-
-                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-                    <div class="flex justify-between mb-2">
-                        <span class="text-gray-400 text-sm">Nível de Satisfação</span>
-                        <span class="text-white font-bold">∞</span>
-                    </div>
-                    <div class="w-full bg-gray-700 rounded-full h-2.5">
-                        <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 95%"></div>
-                    </div>
-                </div>
-
-            </div>
-            
-            <p class="text-center text-gray-500 text-xs mt-8 font-mono">
-                User_ID: 2007-03-20_BR_RJ
-            </p>
-        </div>
-    </div>
-
-
-    <script>
-        const canvas = document.getElementById('star-background');
-        const ctx = canvas.getContext('2d');
-        const mainElement = document.querySelector('main');
-        
-        let stars = [], numStars = 200;
-        
-        // CONFIGURAÇÃO DOS GRÁFICOS
-        let graphs = [], numGraphs = 3; // Reduzi para 3 para ficar mais limpo
-        
-        let isDragging = false;
-
-        const spaceship = { x: -100, y: -100, lastX: -100, lastY: -100, angle: 0, visible: false, size: 15, 
-            draw() { 
-                if (!this.visible) return; 
-                ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle); 
-                const flameSize = this.size * (1 + Math.random() * 0.5); const flameX = -this.size * 1.2; 
-                ctx.beginPath(); ctx.moveTo(flameX, 0); ctx.lineTo(flameX - flameSize, -flameSize / 3); ctx.lineTo(flameX - flameSize, flameSize / 3); ctx.closePath(); 
-                const grd = ctx.createLinearGradient(flameX, 0, flameX - flameSize, 0); grd.addColorStop(0, "rgba(255, 200, 0, 1)"); grd.addColorStop(1, "rgba(255, 0, 0, 0.5)"); 
-                ctx.fillStyle = grd; ctx.fill(); 
-                ctx.beginPath(); ctx.moveTo(this.size, 0); ctx.lineTo(-this.size, -this.size / 2); ctx.lineTo(-this.size, this.size / 2); ctx.closePath(); 
-                ctx.fillStyle = '#d1d5db'; ctx.fill(); ctx.restore(); 
-            }, 
-            update(x, y) { 
-                this.x = x; this.y = y; 
-                if (this.lastX !== -100) { const dx = this.x - this.lastX; const dy = this.y - this.lastY; if(Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) { this.angle = Math.atan2(dy, dx); } } 
-                this.lastX = x; this.lastY = y; 
-            } 
-        };
-
-        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-
-        class Star { 
-            constructor() { this.reset(); this.y = Math.random() * canvas.height; } 
-            reset() { this.x = Math.random() * canvas.width; this.y = canvas.height + Math.random() * 50; this.radius = Math.random() * 1.5 + 0.5; this.alpha = Math.random(); this.deltaAlpha = Math.random() * 0.02 - 0.01; this.speed = Math.random() * 0.2 + 0.1; } 
-            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`; ctx.fill(); } 
-            update() { this.alpha += this.deltaAlpha; if (this.alpha <= 0 || this.alpha >= 1) this.deltaAlpha = -this.deltaAlpha; this.y -= this.speed; if (this.y < 0) this.reset(); this.draw(); } 
-        }
-
-        // CLASSE ATUALIZADA: GraphLine
-        class GraphLine {
-            constructor() {
-                this.reset(true); // true = primeira execução (pode nascer no meio)
-            }
-            reset(firstRun = false) {
-                // Define a direção: 1 = vai para direita, -1 = vai para esquerda
-                this.direction = Math.random() > 0.5 ? 1 : -1;
-                
-                if (firstRun) {
-                    this.x = Math.random() * canvas.width;
-                } else {
-                    // Se vai para direita, nasce na esquerda (-200). Se vai para esquerda, nasce na direita (width + 200)
-                    this.x = this.direction === 1 ? -200 : canvas.width + 200;
-                }
-
-                this.y = Math.random() * canvas.height;
-                this.segments = [];
-                this.speed = (0.5 + Math.random() * 1.5); // Velocidade mais suave
-                
-                this.life = 0;
-                this.maxLife = 400 + Math.random() * 300; // Vivem muito mais tempo agora
-                this.opacity = 0;
-
-                // Gera o formato da linha
-                let currentY = 0;
-                for(let i=0; i < 25; i++) { // Linhas um pouco mais longas
-                    currentY += (Math.random() - 0.5) * 40; 
-                    this.segments.push(currentY);
-                }
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                
-                // Desenha a linha segmentada
-                for(let i=0; i < this.segments.length; i++) {
-                    // Multiplica i * 15 * direction para desenhar pro lado certo
-                    ctx.lineTo(this.x + (i * 15 * this.direction), this.y + this.segments[i]);
-                }
-                
-                // Cor Cyan/Azul Tecnológico
-                ctx.strokeStyle = `rgba(6, 182, 212, ${this.opacity * 0.2})`; 
-                ctx.lineWidth = 2;
-                ctx.stroke();
-                
-                // Pontinhos
-                ctx.fillStyle = `rgba(6, 182, 212, ${this.opacity * 0.4})`;
-                for(let i=0; i < this.segments.length; i++) {
-                    if(Math.random() > 0.9) { 
-                        ctx.beginPath();
-                        ctx.arc(this.x + (i * 15 * this.direction), this.y + this.segments[i], 2, 0, Math.PI*2);
-                        ctx.fill();
-                    }
-                }
-            }
-            update() {
-                this.x += this.speed * this.direction; // Move baseada na direção
-                this.life++;
-                
-                // Fade in (aparece devagar)
-                if (this.life < 100) {
-                    this.opacity = this.life / 100;
-                } 
-                // Fade out (desaparece devagar)
-                else if (this.life > this.maxLife - 100) {
-                    this.opacity = (this.maxLife - this.life) / 100;
-                }
-
-                // Reseta se morrer ou sair muito da tela
-                if (this.life >= this.maxLife) {
-                    this.reset();
-                }
-                this.draw();
-            }
-        }
-
-        function init() { 
-            stars = []; 
-            graphs = [];
-            for (let i = 0; i < numStars; i++) stars.push(new Star()); 
-            for (let i = 0; i < numGraphs; i++) graphs.push(new GraphLine());
-        }
-
-        function animate() { 
-            ctx.clearRect(0, 0, canvas.width, canvas.height); 
-            stars.forEach(star => star.update()); 
-            graphs.forEach(graph => graph.update());
-            spaceship.draw(); 
-            requestAnimationFrame(animate); 
-        }
-
-        // Lógica para Calcular Idade
-        function updateAge() {
-            const birthDate = new Date('2007-03-20');
-            const today = new Date();
-            let age = today.getFullYear() - birthDate.getFullYear();
-            const m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
-            
-            const ageElement = document.getElementById('user-age');
-            if(ageElement) {
-                ageElement.innerText = age + " Anos";
-            }
-        }
-
-        window.addEventListener('resize', () => { resizeCanvas(); init(); });
-        function getEventCoords(e) { return e.touches ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : { x: e.clientX, y: e.clientY }; }
-        
-        mainElement.addEventListener('mousedown', (e) => { isDragging = true; const {x,y} = getEventCoords(e); spaceship.update(x,y); spaceship.visible = true; });
-        mainElement.addEventListener('touchstart', (e) => { isDragging = true; const {x,y} = getEventCoords(e); spaceship.update(x,y); spaceship.visible = true; });
-        window.addEventListener('mouseup', () => { isDragging = false; spaceship.visible = false; spaceship.lastX = -100; });
-        mainElement.addEventListener('mouseleave', () => { isDragging = false; spaceship.visible = false; spaceship.lastX = -100; });
-        window.addEventListener('touchend', () => { isDragging = false; spaceship.visible = false; spaceship.lastX = -100; });
-        window.addEventListener('mousemove', (e) => { if (isDragging) { const {x,y} = getEventCoords(e); spaceship.update(x,y); } });
-        window.addEventListener('touchmove', (e) => { if (isDragging) { e.preventDefault(); const {x,y} = getEventCoords(e); spaceship.update(x,y); } }, { passive: false });
-        
-        function openModal(modalId) { 
-            const modal = document.getElementById(modalId); 
-            document.body.classList.add('modal-open'); 
-            modal.classList.remove('invisible', 'opacity-0'); 
-            modal.querySelector('.modal-content').classList.remove('scale-95'); 
-            
-            // Se abriu o modal de stats, atualiza a idade
-            if(modalId === 'statsModal') {
-                updateAge();
-            }
-        }
-        
-        function closeModal(modalId) { const modal = document.getElementById(modalId); document.body.classList.remove('modal-open'); modal.classList.add('opacity-0'); modal.querySelector('.modal-content').classList.add('scale-95'); setTimeout(() => modal.classList.add('invisible'), 300); }
-        
-        function smoothScroll(event, targetId) {
-            event.preventDefault();
-            const targetElement = document.getElementById(targetId);
-            const projectList = document.getElementById('project-list');
-            if (targetElement && projectList) {
-                const topPos = targetElement.offsetTop - projectList.offsetTop;
-                projectList.scrollTo({ top: topPos, behavior: 'smooth' });
-            }
-        }
-
-        resizeCanvas();
-        init();
-        animate();
-    </script>
 
 </body>
 </html>
